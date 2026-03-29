@@ -1,32 +1,52 @@
+import { useRef } from "react";
 import "./styles/About.css";
+import { publicUrl } from "../utils/publicUrl";
+import { useVideoPlayInSection } from "../hooks/useVideoPlayInSection";
+
+const ABOUT_VIDEO = publicUrl("videos/Aboutme_video.mp4");
 
 const About = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const aboutVideoRef = useRef<HTMLVideoElement>(null);
+
+  useVideoPlayInSection(aboutVideoRef, sectionRef);
+
   return (
-    <div className="about-section" id="about">
-      <div className="about-me">
-        <h3 className="title">About Me</h3>
-        <p className="para">
-          ML engineer and software developer with 3+ years building
-          high-performance ML platforms and generative AI for enterprise
-          healthcare. I have shipped LLM-powered clinical summarization that cut
-          documentation time by about 60% while keeping strict SLA and HIPAA
-          requirements, and I design cloud-native systems for real-time
-          inference with PyTorch, TensorFlow, and AWS (including gRPC and
-          Kubernetes-backed pipelines). Currently pursuing an Executive PhD in
-          AI (University of Cumberland); M.S. Data Science (University of
-          Houston); B.Tech CSE (Kakatiya University).
-        </p>
-        <p className="para">
-          Research: &ldquo;Malicious Prompt Detection in Multi-Indian
-          Languages&rdquo; &mdash; IEEE CIML, March 2026. Multilingual
-          detection with IndicBERT, XLM-RoBERTa, mDeBERTa-v3, and rigorous
-          translation evaluation (chrF++, BLEU, METEOR, BERTScore).
-        </p>
-        <p className="para">
-          Certifications: NVIDIA Certified Associate &mdash; Generative AI and
-          LLMs; AWS Certified Cloud Practitioner; AWS Certified Machine
-          Learning Engineer (see Credly links in Contact).
-        </p>
+    <div className="about-section" id="about" ref={sectionRef}>
+      <div className="about-layout">
+        <div className="about-media">
+          <div className="about-me-video-wrap">
+            <video
+              ref={aboutVideoRef}
+              className="about-hero-video"
+              src={ABOUT_VIDEO}
+              muted
+              loop
+              playsInline
+              preload="auto"
+              autoPlay
+              aria-label="About intro clip"
+            />
+          </div>
+        </div>
+        <div className="about-me">
+          <h3 className="title about-title-spaced">A B O U T&nbsp;&nbsp;M E</h3>
+          <p className="para">
+            I&apos;m a Machine Learning Engineer and Researcher dedicated to
+            building AI that doesn&apos;t just stay in a notebook, but thrives in
+            production. Whether I&apos;m optimizing complex LLM architectures for
+            massive efficiency gains or exploring the frontiers of multilingual
+            safety, I bridge the gap between deep research and high-performance,
+            scalable systems.
+          </p>
+          <p className="para">
+            Driven by curiosity, I am constantly exploring the &ldquo;what&apos;s
+            next&rdquo; of technology—experimenting with new frameworks and
+            refining my craft to turn cutting-edge theories into reliable,
+            real-world tools. I don&apos;t just build models; I build the systems
+            that make them useful.
+          </p>
+        </div>
       </div>
     </div>
   );

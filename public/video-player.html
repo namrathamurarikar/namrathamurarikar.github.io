@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project demo</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: #0a0a0a;
+        color: #e8e8e8;
+        font-family: system-ui, -apple-system, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+      }
+      video {
+        width: 100%;
+        max-width: min(1200px, 100%);
+        max-height: 85vh;
+        border-radius: 8px;
+        background: #000;
+      }
+      #msg {
+        margin-top: 16px;
+        text-align: center;
+        max-width: 42rem;
+        line-height: 1.5;
+      }
+      code {
+        font-size: 0.9em;
+        padding: 0.1em 0.35em;
+        background: #222;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <video id="v" controls playsinline></video>
+    <p id="msg" hidden></p>
+    <script>
+      (function () {
+        var DEMO_FILES = [
+          "AI-Code review (1).mp4",
+          "Nams-Bot.mp4",
+          "AI-Journaling.mp4",
+        ];
+
+        function escapeHtml(s) {
+          return String(s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+
+        /** Same instructional copy for every project / every error path. */
+        function missingVideoInstructionsHtml(filename) {
+          return (
+            "Could not load this video. Put the file in <code>public/videos/</code> as <code>" +
+            escapeHtml(filename) +
+            "</code>, then refresh or rebuild."
+          );
+        }
+
+        function allDemosInstructionsHtml() {
+          var codes = DEMO_FILES.map(function (f) {
+            return "<code>" + escapeHtml(f) + "</code>";
+          }).join(", ");
+          return (
+            "Could not load this video. Put the file in <code>public/videos/</code> as " +
+            codes +
+            " (matching each My Work project), then refresh or rebuild."
+          );
+        }
+
+        function isSafeBasename(name) {
+          if (!name || name.length > 220) return false;
+          if (name.indexOf("/") >= 0 || name.indexOf("\\") >= 0) return false;
+          if (name.indexOf("..") >= 0) return false;
+          if (!/\.mp4$/i.test(name)) return false;
+          if (/[\x00-\x1f\x7f]/.test(name)) return false;
+          return true;
+        }
+
+        var raw = new URLSearchParams(location.search).get("f");
+        var v = document.getElementById("v");
+        var msg = document.getElementById("msg");
+
+        if (!raw) {
+          msg.hidden = false;
+          msg.innerHTML = allDemosInstructionsHtml();
+          return;
+        }
+
+        var name = decodeURIComponent(raw);
+        if (!isSafeBasename(name)) {
+          msg.hidden = false;
+          msg.innerHTML = allDemosInstructionsHtml();
+          return;
+        }
+
+        var url = new URL("videos/" + encodeURIComponent(name), document.baseURI)
+          .href;
+
+        v.addEventListener("error", function () {
+          msg.hidden = false;
+          msg.innerHTML = missingVideoInstructionsHtml(name);
+        });
+
+        v.src = url;
+        v.play().catch(function () {});
+      })();
+    </script>
+  </body>
+</html>

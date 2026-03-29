@@ -91,24 +91,51 @@ body {
   flex-wrap: nowrap;
 }
 
+.work-section {
+  position: relative;
+  z-index: 5;
+}
+
 .techstack {
   width: 100%;
   position: relative;
   height: var(--vh);
   margin: auto;
   margin-top: 50px;
-  margin-bottom: -100px;
+  margin-bottom: 0;
+  overflow: hidden;
+  z-index: 1;
 }
 
+/* WebGL composites on its own layer; keep canvas under the title in DOM + z-index */
+.tech-canvas-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: auto;
+}
+
+.techstack-heading,
 .techstack h2 {
   font-size: 80px;
   text-align: center;
   position: absolute;
   width: 100%;
-  top: 120px;
+  top: clamp(28px, 4vh, 52px);
   left: 0;
   font-weight: 400;
   text-transform: uppercase;
+  z-index: 20;
+  pointer-events: none;
+  transform: translateZ(0);
+}
+
+.tech-canvas {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 0;
 }
 
 @media screen and (min-width: 768px) {
@@ -117,7 +144,9 @@ body {
   }
 }
 @media screen and (max-width: 900px) {
+  .techstack-heading,
   .techstack h2 {
     font-size: 40px;
+    top: 24px;
   }
 }

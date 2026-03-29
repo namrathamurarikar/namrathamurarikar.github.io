@@ -34,6 +34,7 @@ const WhatIDo = () => {
           </div>
         </h2>
       </div>
+      <div className="whatIDO-gap" aria-hidden="true" />
       <div className="what-box">
         <div className="what-box-in">
           <div className="what-border2">
@@ -87,25 +88,25 @@ const WhatIDo = () => {
             <div className="what-corner"></div>
 
             <div className="what-content-in">
-              <h3>ML &amp; AI</h3>
-              <h4>Platforms &amp; models</h4>
+              <h3>DEVELOP</h3>
+              <h4>Engineering &amp; platforms</h4>
               <p>
-                End-to-end ML for production: LLM integration, fine-tuning,
-                evaluation, safety and red-teaming, and real-time inference paths
-                aligned with SLAs and compliance.
+                I started by building scalable backend APIs and high-availability
+                web apps; now I architect event-driven ML platforms and real-time
+                inference pipelines with a focus on 99.99% reliability....and a
+                little bit of magic!
               </p>
-              <h5>Skillset & tools</h5>
+              <h5>Skillset &amp; tools</h5>
               <div className="what-content-flex">
                 <div className="what-tags">Python</div>
-                <div className="what-tags">PyTorch</div>
-                <div className="what-tags">TensorFlow</div>
-                <div className="what-tags">Hugging Face</div>
-                <div className="what-tags">IndicBERT</div>
-                <div className="what-tags">LoRA / QLoRA</div>
-                <div className="what-tags">Prompt engineering</div>
+                <div className="what-tags">Java</div>
+                <div className="what-tags">TypeScript</div>
+                <div className="what-tags">AWS (Lambda/EventBridge)</div>
+                <div className="what-tags">Kubernetes</div>
                 <div className="what-tags">gRPC</div>
-                <div className="what-tags">AWS Lambda</div>
-                <div className="what-tags">A/B testing</div>
+                <div className="what-tags">PostgreSQL</div>
+                <div className="what-tags">DynamoDB</div>
+                <div className="what-tags">Terraform</div>
               </div>
               <div className="what-arrow"></div>
             </div>
@@ -129,25 +130,24 @@ const WhatIDo = () => {
             </div>
             <div className="what-corner"></div>
             <div className="what-content-in">
-              <h3>SOFTWARE</h3>
-              <h4>Cloud &amp; systems</h4>
+              <h3>DESIGN</h3>
+              <h4>ML &amp; systems</h4>
               <p>
-                Scalable backends and data planes: event-driven pipelines,
-                observability, IaC, and APIs that keep enterprise workloads
-                reliable under growth.
+                I don&apos;t just train models—I design the ecosystems they live
+                in. From engineering multi-agent roundtable arenas to fine-tuning
+                LLMs for clinical precision, I focus on the intersection of safety
+                and performance.
               </p>
-              <h5>Skillset & tools</h5>
+              <h5>Skillset &amp; tools</h5>
               <div className="what-content-flex">
-                <div className="what-tags">Java</div>
-                <div className="what-tags">TypeScript</div>
-                <div className="what-tags">JavaScript</div>
-                <div className="what-tags">Node.js</div>
-                <div className="what-tags">.NET</div>
-                <div className="what-tags">AWS</div>
-                <div className="what-tags">Azure</div>
-                <div className="what-tags">Kubernetes</div>
-                <div className="what-tags">DynamoDB</div>
-                <div className="what-tags">Terraform</div>
+                <div className="what-tags">PyTorch</div>
+                <div className="what-tags">TensorFlow</div>
+                <div className="what-tags">Hugging Face</div>
+                <div className="what-tags">LLMs</div>
+                <div className="what-tags">CrewAI</div>
+                <div className="what-tags">Prompt Engineering</div>
+                <div className="what-tags">LangChain</div>
+                <div className="what-tags">Vector Embeddings</div>
               </div>
               <div className="what-arrow"></div>
             </div>

@@ -1,8 +1,8 @@
 .whatIDO {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  place-items: center;
+  justify-content: flex-start;
   position: relative;
   opacity: 1;
   height: 100vh;
@@ -11,18 +11,42 @@
   margin: auto;
   z-index: 9;
 }
+/* Middle zone — like reference layout (space before Develop/Design column) */
+.whatIDO-gap {
+  flex: 1 1 auto;
+  min-width: clamp(32px, 6vw, 120px);
+  max-width: none;
+  align-self: stretch;
+  min-height: 1px;
+  pointer-events: none;
+}
 .what-box {
-  width: 50%;
   display: flex;
   justify-content: center;
   position: relative;
   z-index: 9;
 }
+.what-box:first-child {
+  flex: 0 0 auto;
+  width: min(26%, 300px);
+  min-width: 180px;
+  max-width: 320px;
+  justify-content: flex-end;
+  padding-right: clamp(12px, 2vw, 28px);
+}
+.what-box:last-child {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 0;
+  max-width: min(640px, 46vw);
+  justify-content: flex-start;
+  padding-right: clamp(12px, 3vw, 56px);
+}
 .what-box h2 {
   font-size: calc(4vw + 25px);
   line-height: calc(4vw + 20px);
   font-weight: 600;
-  margin-right: 10%;
+  margin-right: 0;
   margin-bottom: 100px;
 }
 
@@ -34,13 +58,16 @@
 }
 .what-box-in {
   flex-direction: column;
-  height: 500px;
-  margin-left: 200px;
+  height: 560px;
+  margin-left: 0;
   position: relative;
-  display: none;
+  display: flex;
+  width: 100%;
+  max-width: min(640px, 100%);
 }
 .what-content {
-  width: 450px;
+  width: min(640px, 100%);
+  max-width: 100%;
   height: 33%;
   min-height: 50%;
   transition: 0.5s;
@@ -69,7 +96,7 @@
 }
 .what-content p {
   font-size: 14px;
-  line-height: 18px;
+  line-height: 1.45;
   font-weight: 200;
   letter-spacing: 0.7px;
 }
@@ -183,7 +210,8 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  width: 450px;
+  width: 100%;
+  max-width: 640px;
 }
 .what-border2 {
   position: absolute;
@@ -199,14 +227,24 @@
   animation: whatBorders 1.2s 1 forwards;
 }
 .what-border2 svg {
-  height: 500px;
+  height: 560px;
   top: 50%;
   transform: translateY(-50%);
   position: absolute;
 }
 .what-content-in {
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+.what-content-in::-webkit-scrollbar {
+  width: 6px;
+}
+.what-content-in::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
 }
 .what-content-in h5 {
   font-weight: 300;
@@ -240,23 +278,33 @@
   border-radius: 30px;
 }
 @media only screen and (max-width: 1600px) {
-  .what-box h2 {
-    margin-right: 18%;
+  .what-content {
+    width: min(580px, 100%);
   }
 }
 @media only screen and (max-width: 1400px) {
-  .what-box h2 {
-    margin-right: 20%;
+  .what-box:first-child {
+    width: min(28%, 260px);
+    max-width: 280px;
+  }
+  .what-box:last-child {
+    max-width: min(580px, 50vw);
+  }
+  .whatIDO-gap {
+    min-width: clamp(24px, 5vw, 96px);
   }
   .what-box-in {
-    height: 400px;
+    height: 480px;
+  }
+  .what-border2 svg {
+    height: 480px;
   }
   .what-content h3 {
     font-size: 28px;
   }
   .what-content {
     padding: 30px;
-    width: 400px;
+    width: min(520px, 100%);
   }
   .what-content p {
     font-size: 13px;
@@ -276,11 +324,8 @@
   }
 }
 @media only screen and (max-width: 1400px) {
-  .what-box-in {
-    margin-left: 50px;
-  }
   .what-content {
-    width: 380px;
+    width: min(500px, 100%);
   }
 }
 @media only screen and (max-width: 1024px) {
@@ -290,12 +335,15 @@
     padding-bottom: 50px;
   }
   .what-box-in {
-    height: 500px;
-    margin-left: -50px;
+    height: 520px;
+    margin-left: 0;
+  }
+  .what-border2 svg {
+    height: 520px;
   }
   .what-content {
     padding: 50px;
-    width: 500px;
+    width: min(560px, 100%);
   }
   .what-content p {
     font-size: 14px;
@@ -317,16 +365,25 @@
   .whatIDO {
     flex-direction: column;
   }
+  .whatIDO-gap {
+    display: none;
+  }
   .what-box h2 {
     margin: 50px 0;
     font-size: 55px;
     line-height: 53px;
   }
   .what-box:first-child {
+    width: 100%;
+    max-width: calc(100% - 50px);
     justify-content: left;
+    padding-right: 0;
   }
   .what-box:last-child {
+    width: 100%;
     height: 500px;
+    justify-content: center;
+    padding-right: 0;
   }
   .what-box {
     width: 500px;

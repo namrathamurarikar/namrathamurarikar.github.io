@@ -1,85 +1,115 @@
+import { useEffect } from "react";
 import "./styles/Work.css";
 import WorkImage from "./WorkImage";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { safeWorkHref, videoDemoHref } from "../utils/workLinks";
+import { publicUrl } from "../utils/publicUrl";
 
-gsap.registerPlugin(useGSAP);
+type WorkProject = {
+  title: string;
+  category: string;
+  tools: string;
+  image: string;
+  /** Opens in a new tab (video player page, or external https URL) */
+  link: string;
+};
 
-const PROJECTS = [
-  {
-    title: "AI-Persona Roundtable",
-    category: "Multi-agent debate · CrewAI · Streamlit",
-    tools:
-      "Python, CrewAI, Ollama, Llama/Mistral, REST APIs, session & memory tooling",
-  },
+const PROJECTS: WorkProject[] = [
   {
     title: "AI Code Review Assistant",
     category: "LLM + VCS · GitHub · CI",
     tools:
       "Python, PyTorch, Hugging Face, LangChain, CodeBERT/OpenAI embeddings, webhooks",
+    image: publicUrl("images/AI-Codereview.png"),
+    link: videoDemoHref("AI-Code review (1).mp4"),
   },
   {
     title: "Nam's Bot",
     category: "Multi-model chat · Persona routing",
     tools:
       "Python, Gradio, GPT-4, Claude, LLaMA3, OpenAI & Anthropic & Ollama SDKs",
+    image: publicUrl("images/AI-ChatBot.png"),
+    link: videoDemoHref("Nams-Bot.mp4"),
   },
   {
     title: "Bestow Gift Services",
     category: "E-commerce · Freelance",
     tools: "Full-stack web stack for personalized gifting at bestowgiftservices.com",
+    image: publicUrl("images/Bestowgiftservices.png"),
+    link: safeWorkHref("https://store.bestowgifts.com/"),
   },
   {
-    title: "Malicious Prompt Detection",
-    category: "Research · IEEE CIML · Mar 2026",
+    title: "AI-Journaling",
+    category: "Mental health · Hyperlinked digital journal",
     tools:
-      "IndicBERT, XLM-RoBERTa, mDeBERTa-v3, mBERT, chrF++, BLEU, METEOR, BERTScore",
-  },
-  {
-    title: "Clinical ML & platform",
-    category: "Enterprise healthcare · Real-time inference",
-    tools:
-      "PyTorch, TensorFlow, AWS Lambda, gRPC, HIPAA-aware pipelines, rule engines",
+      "Built with Python, Streamlit, and Gemini AI to provide automated ASAM mapping, risk detection, and voice-to-text clinical insights.",
+    image: publicUrl("images/AI-Journaling.png"),
+    link: videoDemoHref("AI-Journaling.mp4"),
   },
 ];
 
+function getWorkHorizontalScroll(): number {
+  const container = document.querySelector(".work-container");
+  const boxes = document.querySelectorAll(".work-box");
+  if (!container || !boxes.length) return 0;
+  let total = 0;
+  boxes.forEach((el) => {
+    total += el.getBoundingClientRect().width;
+  });
+  const visible = container.getBoundingClientRect().width;
+  return Math.max(0, Math.round(total - visible + 24));
+}
+
 const Work = () => {
-  useGSAP(() => {
-    let translateX: number = 0;
+  useEffect(() => {
+    let timeline: gsap.core.Timeline | null = null;
 
-    function setTranslateX() {
-      const box = document.getElementsByClassName("work-box");
-      const rectLeft = document
-        .querySelector(".work-container")!
-        .getBoundingClientRect().left;
-      const rect = box[0].getBoundingClientRect();
-      const parentWidth = box[0].parentElement!.getBoundingClientRect().width;
-      let padding: number =
-        parseInt(window.getComputedStyle(box[0]).padding) / 2;
-      translateX = rect.width * box.length - (rectLeft + parentWidth) + padding;
-    }
+    const setup = () => {
+      timeline?.kill();
+      ScrollTrigger.getById("work")?.kill();
 
-    setTranslateX();
+      const translateX = getWorkHorizontalScroll();
+      if (translateX < 8) {
+        ScrollTrigger.refresh(true);
+        return;
+      }
 
-    let timeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".work-section",
-        start: "top top",
-        end: `+=${translateX}`,
-        scrub: true,
-        pin: true,
-        id: "work",
-      },
-    });
+      timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".work-section",
+          start: "top top",
+          end: `+=${translateX}`,
+          scrub: true,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          id: "work",
+        },
+      });
 
-    timeline.to(".work-flex", {
-      x: -translateX,
-      ease: "none",
+      timeline.to(".work-flex", {
+        x: -translateX,
+        ease: "none",
+      });
+
+      ScrollTrigger.refresh(true);
+    };
+
+    setup();
+    const onLoad = () => setup();
+    window.addEventListener("load", onLoad);
+    let raf2 = 0;
+    const raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => setup());
     });
 
     return () => {
-      timeline.kill();
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+      window.removeEventListener("load", onLoad);
+      timeline?.kill();
       ScrollTrigger.getById("work")?.kill();
     };
   }, []);
@@ -104,7 +134,11 @@ const Work = () => {
                 <h4>Tools and features</h4>
                 <p>{project.tools}</p>
               </div>
-              <WorkImage image="/images/placeholder.webp" alt="" />
+              <WorkImage
+                image={project.image}
+                alt={project.title}
+                link={project.link}
+              />
             </div>
           ))}
         </div>

@@ -1,26 +1,70 @@
 .about-section {
   display: flex;
-  align-items: center;
-  justify-content: left;
-  place-items: center;
+  align-items: flex-start;
+  justify-content: center;
   position: relative;
   opacity: 1;
   height: auto;
   width: var(--cWidth);
+  max-width: var(--cMaxWidth, 1920px);
   margin: auto;
+  padding-block: clamp(0.75rem, 2vh, 1.5rem);
+  box-sizing: border-box;
 }
+
+.about-layout {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 3vw, 1.75rem);
+  width: 100%;
+  align-items: stretch;
+}
+
+.about-media {
+  width: 100%;
+  min-width: 0;
+  order: 0;
+}
+
 .about-me {
-  padding: 50px 0px;
-  padding-bottom: 0;
-  width: 500px;
-  max-width: calc(100% - 15px);
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  order: 1;
 }
+
+.about-me h3.title,
+.about-me h3.about-title-spaced {
+  margin: 0 0 0.35em;
+}
+
+.about-me-video-wrap {
+  width: 100%;
+  margin: 0;
+}
+
+.about-hero-video {
+  display: block;
+  width: 100%;
+  max-height: min(42vh, 420px);
+  object-fit: contain;
+  object-position: center top;
+  border-radius: 12px;
+  pointer-events: none;
+  background: #0a0a0a;
+}
+
 .about-me h3 {
-  font-size: 25px;
+  font-size: 23px;
   text-transform: uppercase;
   letter-spacing: 7px;
   font-weight: 400;
   color: var(--accentColor);
+}
+
+.about-me h3.about-title-spaced {
+  letter-spacing: 0.22em;
 }
 
 .about-me .para + .para {
@@ -28,48 +72,75 @@
 }
 
 .about-me p {
-  font-size: 33px;
+  font-size: 31px;
   font-weight: 600;
-  line-height: 36px;
+  line-height: 34px;
   letter-spacing: 1px;
+  margin: 0;
 }
 
-@media only screen and (min-width: 600px) {
-  .about-section {
-    justify-content: center;
-  }
-}
 @media only screen and (min-width: 768px) {
   .about-me {
-    width: 500px;
-    max-width: calc(100% - 70px);
     transform: translateY(0%);
   }
   .about-section {
     opacity: 1;
   }
 }
+
 @media only screen and (min-width: 1025px) {
   .about-section {
-    width: var(--cWidth);
-    justify-content: right;
-    max-width: 1920px;
-    height: var(--vh);
-    padding: 0px;
+    justify-content: center;
+    min-height: 0;
+    height: auto;
+    padding-block: clamp(0.5rem, 1.5vh, 1.25rem);
+    padding-inline: 0;
     opacity: 1;
+    z-index: 12;
   }
+
+  .about-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    column-gap: clamp(1.25rem, 3.5vw, 3rem);
+    row-gap: 0;
+  }
+
+  .about-media {
+    order: 0;
+    justify-self: stretch;
+    align-self: start;
+  }
+
   .about-me {
-    padding: 0px;
-    width: 50%;
+    order: 0;
+    width: 100%;
+    max-width: none;
+    padding: 0.15rem 0 0;
   }
+
+  .about-me-video-wrap {
+    position: relative;
+    width: 100%;
+  }
+
+  .about-hero-video {
+    width: 100%;
+    max-height: min(72vh, 640px);
+    object-fit: contain;
+    object-position: center top;
+  }
+
   .about-me p {
-    font-size: 1.9vw;
-    line-height: 2.3vw;
+    font-size: 1.7vw;
+    line-height: 2.1vw;
   }
 }
+
 @media only screen and (min-width: 1950px) {
   .about-me p {
-    font-size: 2.5rem;
-    line-height: 2.7rem;
+    font-size: 2.3rem;
+    line-height: 2.5rem;
   }
 }
