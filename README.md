@@ -23,13 +23,9 @@ Build your own version — don’t just copy.
 
 ---
 
-## 🛠️ Instructions
+## 🛠️ GSAP
 
-I have modified the GSAP Club plugins using trial versions.  
-⚠️ Note: Trial plugins cannot be used for production or hosting.
-
-For official GSAP Club plugins, refer here:  
-https://gsap.com/docs/v3/Installation/
+This project uses **`gsap` 3.14+** with **`ScrollSmoother`** and **`SplitText`** from the main package (`gsap/ScrollSmoother`, `gsap/SplitText`). Do **not** use `gsap-trial` for public deploys — trial builds redirect on production URLs. See [GSAP installation](https://gsap.com/docs/v3/Installation/).
 
 ---
 

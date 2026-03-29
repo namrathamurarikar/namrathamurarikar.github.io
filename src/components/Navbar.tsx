@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ScrollSmoother } from "gsap-trial/ScrollSmoother";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 import HoverLinks from "./HoverLinks";
 import { smoother } from "./utils/scrollSmooth";
 import "./styles/Navbar.css";
