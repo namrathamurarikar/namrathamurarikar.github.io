@@ -1,15 +1,11 @@
-import { lazy, Suspense } from "react";
 import "./App.css";
 import { LoadingProvider } from "./context/LoadingProvider";
-
-const MainContainer = lazy(() => import("./components/MainContainer"));
+import MainContainer from "./components/MainContainer";
 
 const App = () => {
   return (
     <LoadingProvider>
-      <Suspense>
-        <MainContainer />
-      </Suspense>
+      <MainContainer />
     </LoadingProvider>
   );
 };
