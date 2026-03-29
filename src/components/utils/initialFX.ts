@@ -99,4 +99,12 @@ export function initialFX() {
       console.error("Scroll timelines failed:", e);
     }
   });
+
+  /* Safety: never leave <main> stuck invisible if CSS animation did not run */
+  window.setTimeout(() => {
+    const m = document.querySelector("main.main-body") as HTMLElement | null;
+    if (m && getComputedStyle(m).opacity === "0") {
+      m.style.opacity = "1";
+    }
+  }, 2000);
 }

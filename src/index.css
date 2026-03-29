@@ -45,13 +45,22 @@ main {
   opacity: 1;
   transition: 0.3s;
 }
-.main-active {
-  opacity: 0;
-  animation: fadeIn 1s 1;
-  animation-fill-mode: forwards;
+/* Do not set opacity: 0 on the element itself — if the animation never runs
+   (reduced motion, errors), content would stay invisible on a black body. */
+main.main-body.main-active {
+  animation: mainBodyFadeIn 0.9s ease-out forwards;
 }
-@keyframes fadeIn {
-  100% {
+@keyframes mainBodyFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  main.main-body.main-active {
+    animation: none;
     opacity: 1;
   }
 }

@@ -30,14 +30,11 @@ jobs:
           cache: npm
 
       - name: Install and build
+        env:
+          # Must reach Vite’s Node process (shell `export` alone can be missed by some runners)
+          VITE_BASE_URL: ${{ endsWith(github.event.repository.name, '.github.io') && '/' || format('/{0}/', github.event.repository.name) }}
         run: |
           npm ci
-          REPO="${{ github.event.repository.name }}"
-          if [[ "$REPO" == *.github.io ]]; then
-            export VITE_BASE_URL="/"
-          else
-            export VITE_BASE_URL="/$REPO/"
-          fi
           echo "VITE_BASE_URL=$VITE_BASE_URL"
           npm run build
 
