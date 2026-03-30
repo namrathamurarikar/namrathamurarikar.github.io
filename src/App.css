@@ -2,6 +2,7 @@
   width: 1300px;
 }
 .title,
+.what-heading,
 .para {
   font-kerning: none;
   -webkit-text-rendering: optimizeSpeed;

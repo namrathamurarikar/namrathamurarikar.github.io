@@ -8,7 +8,8 @@
   width: var(--cWidth);
   max-width: var(--cMaxWidth);
   margin: auto;
-  padding: 80px 0 100px;
+  /* Extra top space so the heading does not sit on the Work section / grid lines */
+  padding: clamp(120px, 16vh, 200px) 0 100px;
   box-sizing: border-box;
   background-color: var(--backgroundColor);
   isolation: isolate;
@@ -160,7 +161,7 @@ a.paper-button {
 
 @media only screen and (max-width: 900px) {
   .research-section {
-    padding: 60px 0 80px;
+    padding: clamp(80px, 12vh, 140px) 0 80px;
   }
 
   .research-body {

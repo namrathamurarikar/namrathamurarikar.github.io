@@ -50,6 +50,12 @@
   margin-bottom: 100px;
 }
 
+/* Keep "WHAT" on one line (SplitText removed; still guard against narrow widths) */
+.what-heading-what {
+  display: inline-block;
+  white-space: nowrap;
+}
+
 .hat-h2 {
   font-style: italic;
 }

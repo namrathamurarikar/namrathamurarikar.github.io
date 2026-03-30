@@ -14,7 +14,9 @@ export default function setSplitText() {
   ScrollTrigger.config({ ignoreMobileResize: true });
   if (window.innerWidth < 900) return;
   const paras: NodeListOf<ParaElement> = document.querySelectorAll(".para");
-  const titles: NodeListOf<ParaElement> = document.querySelectorAll(".title");
+  /* Only About Me h3 — do not split What I Do h2 (would break "WHAT" into W / HAT) */
+  const titles: NodeListOf<ParaElement> =
+    document.querySelectorAll(".about-me h3.title");
 
   const TriggerStart = window.innerWidth <= 1024 ? "top 60%" : "20% 60%";
   const ToggleAction = "play pause resume reverse";
