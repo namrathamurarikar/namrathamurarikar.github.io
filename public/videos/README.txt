@@ -3,8 +3,9 @@ Put your demo .mp4 files in THIS folder (public/videos).
 My Work demo videos:
   AI-Code review (1).mp4
   Nams-Bot.mp4
-  Interactive_journaling_video.mp4 — AI-Journaling project (click image opens video-player).
-    Files >100 MB cannot be pushed to GitHub without LFS or external hosting.
+  Interactive_journaling_video.mp4 — AI-Journaling project (repo copy is compressed for GitHub <100 MB).
+    To re-encode a large export locally (example):
+    ffmpeg -y -i YOUR_BIG_FILE.mp4 -c:v libx264 -b:v 750k -maxrate 850k -bufsize 1700k -vf scale=960:-2 -c:a aac -b:a 96k -movflags +faststart -preset fast public/videos/Interactive_journaling_video.mp4
 
 (Renames: update src/components/Work.tsx — videoDemoHref("...").)
 
