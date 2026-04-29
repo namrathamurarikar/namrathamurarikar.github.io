@@ -47,6 +47,14 @@ const PROJECTS: WorkProject[] = [
     image: publicUrl("images/AI-Journaling.png"),
     link: videoDemoHref("Interactive_journaling_video.mp4"),
   },
+  {
+    title: "AI-Job Assistant",
+    category: "Agentic automation · Local-first · Zero-cost",
+    tools:
+      "Playwright scraping, NLP JD-CV fit scoring, tailored LaTeX/PDF resume generation, real-time Node.js dashboard, Claude workflow orchestration, Gemini JD evaluation, Ollama local inference, SSE streaming + REST APIs, and modular hot-swappable LLM backends.",
+    image: publicUrl("images/AI-JobAssistant.jpeg"),
+    link: safeWorkHref("#"),
+  },
 ];
 
 function getWorkHorizontalScroll(): number {
